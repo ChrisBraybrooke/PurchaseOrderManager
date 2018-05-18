@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Route::resource('orders', 'OrderController');
 
+Route::get('orders/print/{order}', function (App\Order $order) {
+    return view('print-templates/delivery-note', compact('order'));
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

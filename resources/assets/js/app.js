@@ -33,5 +33,6 @@ const app = new Vue({
     el: '#app',
     components: {
         ProductAddComponent: () => import('./components/ProductAddComponent'),
+        PrintButton: () => import('./components/PrintButton'),
     },
 });

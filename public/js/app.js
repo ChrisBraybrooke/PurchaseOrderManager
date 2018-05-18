@@ -13990,7 +13990,10 @@ var app = new Vue({
     el: '#app',
     components: {
         ProductAddComponent: function ProductAddComponent() {
-            return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 41));
+            return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 41));
+        },
+        PrintButton: function PrintButton() {
+            return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 63));
         }
     }
 });

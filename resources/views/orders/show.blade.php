@@ -25,7 +25,9 @@
                         {{ __('Print') }}
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">{{ __('Delivery Note') }}</a>
+                        <print-button print-url="/orders/print/{{ $order->id }}">
+                            <a slot-scope="props" @click="props.print" class="dropdown-item" href="#">{{ __('Delivery Note') }}</a>
+                        </print-button>
                         <a class="dropdown-item" href="#">{{ __('Invoice') }}</a>
                     </div>
                 </div>
@@ -88,28 +90,7 @@
 
         <div class="row mt-4">
             <div class="col-md-12">
-                <table class="table table-hover bg-white">
-                    <thead>
-                        <tr>
-                            <th scope="col">Product Code</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Unit Price</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </thead>
-                  <tbody>
-                      @foreach ($order->order_info ?? [] as $key => $product)
-                          <tr>
-                              <td>{{ $product['code'] ?? '' }}</td>
-                              <td>{{ $product['description'] ?? '' }}</td>
-                              <td>{{ $product['quantity'] ?? '' }}</td>
-                              <td>{{ env('SITE_CURRENCY', '£') }}{{ $product['unit_price'] ?? '' }}</td>
-                              <td>{{ env('SITE_CURRENCY', '£') }}{{ $product['total'] ?? '' }}</td>
-                          </tr>
-                      @endforeach
-                  </tbody>
-                </table>
+                <product-add-component :edit="false" :existing-shipping="{{ $order->shipping_cost }}" :existing-products="{{ $order->order_info ?: collect([]) }}" />
             </div>
         </div>
 

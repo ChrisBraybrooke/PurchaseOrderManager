@@ -2,35 +2,40 @@
 
 <tr>
     <td>
-        <input type="text" v-model="product.code" :name="'products[' + id + '][code]'" class="form-control form-control-sm" id="code" required>
+        <input v-if="edit" type="text" v-model="product.code" :name="'products[' + id + '][code]'" class="form-control form-control-sm" id="code" required>
+        <span v-else>{{ product.code }}</span>
     </td>
     <td>
-        <input type="text" v-model="product.description" :name="'products[' + id + '][description]'" class="form-control form-control-sm" id="description" required>
+        <input v-if="edit" type="text" v-model="product.description" :name="'products[' + id + '][description]'" class="form-control form-control-sm" id="description" required>
+        <span v-else>{{ product.description }}</span>
     </td>
     <td>
-        <select v-model="product.quantity" :name="'products[' + id + '][quantity]'" id="quantity" class="custom-select custom-select-sm" required>
+        <select v-if="edit" v-model="product.quantity" :name="'products[' + id + '][quantity]'" id="quantity" class="custom-select custom-select-sm" required>
             <option v-for="(range, key) in ranges" :value="range + 1" :key="range">{{ range + 1 }}</option>
         </select>
+        <span v-else>{{ product.quantity }}</span>
     </td>
     <td>
-        <div class="input-group input-group-sm">
+        <div v-if="edit" class="input-group input-group-sm">
             <div class="input-group-prepend">
                 <span class="input-group-text">{{ siteCurrency }}</span>
             </div>
             <input type="number" v-model="product.unit_price" @change="unitPriceChange" :name="'products[' + id + '][unit_price]'" class="form-control form-control-sm" id="unit_price" required>
         </div>
+        <span v-else>{{ siteCurrency }}{{ product.unit_price }}</span>
     </td>
     <td>
-        <div class="input-group input-group-sm">
+        <div v-if="edit" class="input-group input-group-sm">
             <div class="input-group-prepend">
                 <span class="input-group-text">{{ siteCurrency }}</span>
             </div>
             <input type="number" :value="formatPrice(product.total)" class="form-control form-control-sm" disabled required>
             <input type="number" v-model="product.total" :name="'products[' + id + '][total]'" class="form-control form-control-sm" id="total" hidden required>
         </div>
+        <span v-else>{{ siteCurrency }}{{ formatPrice(product.total) }}</span>
     </td>
     <td>
-        <button type="button" name="delete" class="btn btn-sm btn-outline-danger" @click="removeRow"> <i class="far fa-trash-alt" aria-hidden></i> </button>
+        <button v-if="edit" type="button" name="delete" class="btn btn-sm btn-outline-danger" @click="removeRow"> <i class="far fa-trash-alt" aria-hidden></i> </button>
     </td>
 
 </tr>
@@ -58,6 +63,13 @@ export default {
           id: {
               required: true,
           },
+          edit: {
+              required: false,
+              type: Boolean,
+              default () {
+                  return true
+              }
+          }
       },
 
       data () {

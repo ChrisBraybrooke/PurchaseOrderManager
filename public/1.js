@@ -87,7 +87,7 @@ exports = module.exports = __webpack_require__(40)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -101,6 +101,11 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -158,6 +163,13 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         },
         id: {
             required: true
+        },
+        edit: {
+            required: false,
+            type: Boolean,
+            default: function _default() {
+                return true;
+            }
         }
     },
 
@@ -211,204 +223,225 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("tr", [
     _c("td", [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.product.code,
-            expression: "product.code"
-          }
-        ],
-        staticClass: "form-control form-control-sm",
-        attrs: {
-          type: "text",
-          name: "products[" + _vm.id + "][code]",
-          id: "code",
-          required: ""
-        },
-        domProps: { value: _vm.product.code },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.product, "code", $event.target.value)
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.product.description,
-            expression: "product.description"
-          }
-        ],
-        staticClass: "form-control form-control-sm",
-        attrs: {
-          type: "text",
-          name: "products[" + _vm.id + "][description]",
-          id: "description",
-          required: ""
-        },
-        domProps: { value: _vm.product.description },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.product, "description", $event.target.value)
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c(
-        "select",
-        {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.product.quantity,
-              expression: "product.quantity"
-            }
-          ],
-          staticClass: "custom-select custom-select-sm",
-          attrs: {
-            name: "products[" + _vm.id + "][quantity]",
-            id: "quantity",
-            required: ""
-          },
-          on: {
-            change: function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.$set(
-                _vm.product,
-                "quantity",
-                $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-              )
-            }
-          }
-        },
-        _vm._l(_vm.ranges, function(range, key) {
-          return _c("option", { key: range, domProps: { value: range + 1 } }, [
-            _vm._v(_vm._s(range + 1))
-          ])
-        })
-      )
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c("div", { staticClass: "input-group input-group-sm" }, [
-        _c("div", { staticClass: "input-group-prepend" }, [
-          _c("span", { staticClass: "input-group-text" }, [
-            _vm._v(_vm._s(_vm.siteCurrency))
-          ])
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.product.unit_price,
-              expression: "product.unit_price"
-            }
-          ],
-          staticClass: "form-control form-control-sm",
-          attrs: {
-            type: "number",
-            name: "products[" + _vm.id + "][unit_price]",
-            id: "unit_price",
-            required: ""
-          },
-          domProps: { value: _vm.product.unit_price },
-          on: {
-            change: _vm.unitPriceChange,
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+      _vm.edit
+        ? _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.product.code,
+                expression: "product.code"
               }
-              _vm.$set(_vm.product, "unit_price", $event.target.value)
-            }
-          }
-        })
-      ])
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c("div", { staticClass: "input-group input-group-sm" }, [
-        _c("div", { staticClass: "input-group-prepend" }, [
-          _c("span", { staticClass: "input-group-text" }, [
-            _vm._v(_vm._s(_vm.siteCurrency))
-          ])
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control form-control-sm",
-          attrs: { type: "number", disabled: "", required: "" },
-          domProps: { value: _vm.formatPrice(_vm.product.total) }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.product.total,
-              expression: "product.total"
-            }
-          ],
-          staticClass: "form-control form-control-sm",
-          attrs: {
-            type: "number",
-            name: "products[" + _vm.id + "][total]",
-            id: "total",
-            hidden: "",
-            required: ""
-          },
-          domProps: { value: _vm.product.total },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: {
+              type: "text",
+              name: "products[" + _vm.id + "][code]",
+              id: "code",
+              required: ""
+            },
+            domProps: { value: _vm.product.code },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.product, "code", $event.target.value)
               }
-              _vm.$set(_vm.product, "total", $event.target.value)
             }
-          }
-        })
-      ])
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-sm btn-outline-danger",
-          attrs: { type: "button", name: "delete" },
-          on: { click: _vm.removeRow }
-        },
-        [
-          _c("i", {
-            staticClass: "far fa-trash-alt",
-            attrs: { "aria-hidden": "" }
           })
-        ]
-      )
+        : _c("span", [_vm._v(_vm._s(_vm.product.code))])
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _vm.edit
+        ? _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.product.description,
+                expression: "product.description"
+              }
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: {
+              type: "text",
+              name: "products[" + _vm.id + "][description]",
+              id: "description",
+              required: ""
+            },
+            domProps: { value: _vm.product.description },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.product, "description", $event.target.value)
+              }
+            }
+          })
+        : _c("span", [_vm._v(_vm._s(_vm.product.description))])
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _vm.edit
+        ? _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.product.quantity,
+                  expression: "product.quantity"
+                }
+              ],
+              staticClass: "custom-select custom-select-sm",
+              attrs: {
+                name: "products[" + _vm.id + "][quantity]",
+                id: "quantity",
+                required: ""
+              },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.product,
+                    "quantity",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            _vm._l(_vm.ranges, function(range, key) {
+              return _c(
+                "option",
+                { key: range, domProps: { value: range + 1 } },
+                [_vm._v(_vm._s(range + 1))]
+              )
+            })
+          )
+        : _c("span", [_vm._v(_vm._s(_vm.product.quantity))])
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _vm.edit
+        ? _c("div", { staticClass: "input-group input-group-sm" }, [
+            _c("div", { staticClass: "input-group-prepend" }, [
+              _c("span", { staticClass: "input-group-text" }, [
+                _vm._v(_vm._s(_vm.siteCurrency))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.product.unit_price,
+                  expression: "product.unit_price"
+                }
+              ],
+              staticClass: "form-control form-control-sm",
+              attrs: {
+                type: "number",
+                name: "products[" + _vm.id + "][unit_price]",
+                id: "unit_price",
+                required: ""
+              },
+              domProps: { value: _vm.product.unit_price },
+              on: {
+                change: _vm.unitPriceChange,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.product, "unit_price", $event.target.value)
+                }
+              }
+            })
+          ])
+        : _c("span", [
+            _vm._v(_vm._s(_vm.siteCurrency) + _vm._s(_vm.product.unit_price))
+          ])
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _vm.edit
+        ? _c("div", { staticClass: "input-group input-group-sm" }, [
+            _c("div", { staticClass: "input-group-prepend" }, [
+              _c("span", { staticClass: "input-group-text" }, [
+                _vm._v(_vm._s(_vm.siteCurrency))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control form-control-sm",
+              attrs: { type: "number", disabled: "", required: "" },
+              domProps: { value: _vm.formatPrice(_vm.product.total) }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.product.total,
+                  expression: "product.total"
+                }
+              ],
+              staticClass: "form-control form-control-sm",
+              attrs: {
+                type: "number",
+                name: "products[" + _vm.id + "][total]",
+                id: "total",
+                hidden: "",
+                required: ""
+              },
+              domProps: { value: _vm.product.total },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.product, "total", $event.target.value)
+                }
+              }
+            })
+          ])
+        : _c("span", [
+            _vm._v(
+              _vm._s(_vm.siteCurrency) +
+                _vm._s(_vm.formatPrice(_vm.product.total))
+            )
+          ])
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _vm.edit
+        ? _c(
+            "button",
+            {
+              staticClass: "btn btn-sm btn-outline-danger",
+              attrs: { type: "button", name: "delete" },
+              on: { click: _vm.removeRow }
+            },
+            [
+              _c("i", {
+                staticClass: "far fa-trash-alt",
+                attrs: { "aria-hidden": "" }
+              })
+            ]
+          )
+        : _vm._e()
     ])
   ])
 }

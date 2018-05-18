@@ -84,7 +84,7 @@
 
 @if ($type === 'billing')
     <div class="custom-control custom-checkbox">
-        <input type="checkbox" name="use_billing_for_shipping" value="1" class="custom-control-input" id="use_billing_for_shipping" @if(old('use_billing_for_shipping')) checked @endif>
+        <input type="checkbox" name="use_billing_for_shipping" value="1" class="custom-control-input" id="use_billing_for_shipping" @if((isset($address) ? $address->use_billing_for_shipping : false) || old('use_billing_for_shipping')) checked @endif>
         <label class="custom-control-label" for="use_billing_for_shipping">{{ __('Use billing address for shipping?') }}</label>
     </div>
 @endif

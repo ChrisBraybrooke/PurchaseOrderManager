@@ -16,7 +16,7 @@ class Order extends Model
         'billing_address_line2', 'billing_address_town', 'billing_address_county', 'billing_address_postcode',
         'billing_address_country', 'use_billing_for_shipping', 'shipping_address_line1', 'shipping_address_line2',
         'shipping_address_town', 'shipping_address_county', 'shipping_address_postcode', 'shipping_address_country',
-        'ship_date', 'arrive_date', 'order_info'
+        'ship_date', 'arrive_date', 'order_info', 'shipping_cost'
     ];
 
     /**

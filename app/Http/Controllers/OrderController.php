@@ -46,6 +46,7 @@ class OrderController extends Controller
             'customer_order_ref' => $request->customer_ref,
             'own_order_ref' => $request->own_ref,
             'order_info' => $request->products,
+            'shipping_cost' => $request->shipping_cost,
 
             'use_billing_for_shipping' => $request->has('use_billing_for_shipping') ? $request->use_billing_for_shipping : false,
 
@@ -108,6 +109,7 @@ class OrderController extends Controller
             'customer_order_ref' => $request->customer_ref,
             'own_order_ref' => $request->own_ref,
             'order_info' => $request->products,
+            'shipping_cost' => $request->shipping_cost,
 
             'use_billing_for_shipping' => $request->has('use_billing_for_shipping') ? $request->use_billing_for_shipping : false,
 

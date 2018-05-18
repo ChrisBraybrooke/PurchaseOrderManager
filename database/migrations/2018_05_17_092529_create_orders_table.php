@@ -37,6 +37,7 @@ class CreateOrdersTable extends Migration
 
             $table->date('ship_date')->nullable()->default(null);
             $table->date('arrive_date')->nullable()->default(null);
+            $table->string('shipping_cost')->nullable()->default(null);
 
             $table->longText('order_info')->nullable()->default(null);
 
