@@ -80,7 +80,7 @@
 
 
             <div class="mt-4">
-                <product-add-component :existing-products="{{ $order->order_info ?: collect([]) }}" />
+                <product-add-component :existing-shipping="{{ $order->shipping_cost }}" :existing-products="{{ $order->order_info ?: collect([]) }}" />
             </div>
 
             <button type="submit" class="btn btn-outline-success btn-sm mt-5">{{ __('Save Order') }}</button>

@@ -9,6 +9,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+var numeral = require('numeral');
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -24,7 +26,8 @@ Vue.mixin({
     methods: {
         formatPrice(price)
         {
-            return parseFloat(price).toFixed(2);
+            var number = parseFloat(price);
+            return numeral(number).format('0,0.00');
         }
     }
 });
@@ -34,5 +37,6 @@ const app = new Vue({
     components: {
         ProductAddComponent: () => import('./components/ProductAddComponent'),
         PrintButton: () => import('./components/PrintButton'),
+        PrintOrderButton: () => import('./components/PrintOrderButton'),
     },
 });

@@ -25,10 +25,12 @@
                         {{ __('Print') }}
                     </button>
                     <div class="dropdown-menu">
-                        <print-button print-url="/orders/print/{{ $order->id }}">
-                            <a slot-scope="props" @click="props.print" class="dropdown-item" href="#">{{ __('Delivery Note') }}</a>
-                        </print-button>
-                        <a class="dropdown-item" href="#">{{ __('Invoice') }}</a>
+                        <print-order-button :order="{{ $order->toJson() }}" type="delivery-note">
+                            <a slot-scope="props" @click="props.print" class="dropdown-item">{{ __('Delivery Note') }}</a>
+                        </print-order-button>
+                        <print-order-button :order="{{ $order->toJson() }}" type="invoice">
+                            <a slot-scope="props" @click="props.print" class="dropdown-item">{{ __('Invoice') }}</a>
+                        </print-order-button>
                     </div>
                 </div>
                 <div class="btn-group">
@@ -36,9 +38,9 @@
                         {{ __('Download') }}
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">{{ __('Delivery Note PDF') }}</a>
-                        <a class="dropdown-item" href="#">{{ __('Invoice PDF') }}</a>
-                        <a class="dropdown-item" href="#">{{ __('Itemised CSV') }}</a>
+                        <a class="dropdown-item" href="{{ $order->delivery_note_pdf_link }}">{{ __('Delivery Note PDF') }}</a>
+                        <a class="dropdown-item" href="{{ $order->invoice_pdf_link }}">{{ __('Invoice PDF') }}</a>
+                        <a class="dropdown-item" href="">{{ __('Itemised CSV') }}</a>
                     </div>
                 </div>
                 <a href="{{ route('orders.edit', $order) }}" class="btn btn-outline-secondary btn-sm">{{ __('Edit Order') }}</a>
@@ -56,7 +58,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <p><span class="font-weight-bold">Date: </span>{{ $order->created_at }}</p>
+                <p><span class="font-weight-bold">Date: </span>{{ $order->created_at->format('d/m/y') }}</p>
             </div>
             <div class="col-md-6">
                 <p><span class="font-weight-bold">Customer Ref: </span>{{ $order->customer_name }}</p>

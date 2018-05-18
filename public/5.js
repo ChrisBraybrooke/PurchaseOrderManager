@@ -1,53 +1,84 @@
-webpackJsonp([0],{
+webpackJsonp([5],{
 
-/***/ 41:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 40:
+/***/ (function(module, exports) {
 
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(46)
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
 }
-var normalizeComponent = __webpack_require__(44)
-/* script */
-var __vue_script__ = __webpack_require__(48)
-/* template */
-var __vue_template__ = __webpack_require__(54)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/ProductAddComponent.vue"
 
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-198bddf8", Component.options)
-  } else {
-    hotAPI.reload("data-v-198bddf8", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
 
-module.exports = Component.exports
+	return '/*# ' + data + ' */';
+}
 
 
 /***/ }),
@@ -425,23 +456,75 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 46:
+/***/ 68:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(69)
+}
+var normalizeComponent = __webpack_require__(44)
+/* script */
+var __vue_script__ = __webpack_require__(71)
+/* template */
+var __vue_template__ = __webpack_require__(72)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/PrintOrderButton.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-523f77ea", Component.options)
+  } else {
+    hotAPI.reload("data-v-523f77ea", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 69:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(47);
+var content = __webpack_require__(70);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(43)("0018f24a", content, false, {});
+var update = __webpack_require__(43)("00c95fdf", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-198bddf8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ProductAddComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-198bddf8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ProductAddComponent.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-523f77ea\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PrintOrderButton.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-523f77ea\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PrintOrderButton.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -452,7 +535,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 47:
+/***/ 70:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(40)(false);
@@ -460,14 +543,14 @@ exports = module.exports = __webpack_require__(40)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 48:
+/***/ 71:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -480,329 +563,71 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
-var productModel = {
-    code: "",
-    description: "",
-    quantity: 1,
-    unit_price: 0,
-    total: 0
-};
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-    name: 'ProductAddComponent',
+    name: 'PrintOrderButton',
 
     components: {
-        ProductRow: function ProductRow() {
-            return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 49));
+        PrintButton: function PrintButton() {
+            return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 42));
         }
     },
 
     props: {
-        existingProducts: {
-            required: false,
-            type: Array,
-            default: function _default() {
-                return [_.clone(productModel, true)];
-            }
+        order: {
+            required: true,
+            type: Object
         },
-        existingShipping: {
-            required: false,
-            type: Number,
-            default: function _default() {
-                return 0;
-            }
-        },
-        edit: {
-            required: false,
-            type: Boolean,
-            default: function _default() {
-                return true;
-            }
+        type: {
+            required: true,
+            type: String
         }
     },
 
     data: function data() {
-        return {
-            products: [],
-            shipping_cost: 0
-        };
+        return {};
     },
 
 
     computed: {
-        formattedShipping: function formattedShipping() {
-            return parseFloat(this.shipping_cost ? this.shipping_cost : 0);
-        },
-
-        productsSubTotal: function productsSubTotal() {
-            var total = 0;
-            _.forEach(this.products, function (product) {
-                total = total + product.total;
-            });
-            return parseFloat(total);
-        },
-        productsTotalVAT: function productsTotalVAT() {
-            return (parseFloat(this.productsSubTotal) + this.formattedShipping) * 0.2;
-        },
-        productsTotal: function productsTotal() {
-            return this.productsSubTotal + this.productsTotalVAT + this.formattedShipping;
+        printUrl: function printUrl() {
+            if (this.type === 'invoice') {
+                return this.order.invoice_link;
+            }
+            return this.order.delivery_note_link;
         }
     },
 
     watch: {},
 
-    mounted: function mounted() {
-        console.log('ProductAddComponent mounted');
-        this.products = _.clone(this.existingProducts, true);
-        this.shipping_cost = _.clone(parseFloat(this.existingShipping), true);
-    },
+    mounted: function mounted() {},
 
 
-    methods: {
-        addRow: function addRow() {
-            this.products.push(_.clone(productModel, true));
-        }
-    }
+    methods: {}
 
 });
 
 /***/ }),
 
-/***/ 54:
+/***/ 72:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [
-    _c("table", { staticClass: "table table-hover bg-white mb-0" }, [
-      _c("thead", [
-        _c("tr", [
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Product Code")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Description")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Quantity")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Unit Price")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Total")]),
-          _vm._v(" "),
-          _vm.edit ? _c("th", { attrs: { scope: "col" } }) : _vm._e()
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.products, function(product, key) {
-          return _c("product-row", {
-            key: key,
-            attrs: {
-              edit: _vm.edit,
-              id: key,
-              product: product,
-              products: _vm.products
-            }
-          })
-        })
-      )
-    ]),
-    _vm._v(" "),
-    _c("table", { staticClass: "table bg-white mt-0" }, [
-      _c("tbody", [
-        _c("tr", [
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Sub-Total")]),
-          _vm._v(" "),
-          _c("td", { attrs: { scope: "col" } }, [
-            _vm._v(
-              _vm._s(_vm.siteCurrency) +
-                _vm._s(_vm.formatPrice(_vm.productsSubTotal))
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Shipping")]),
-          _vm._v(" "),
-          _c("td", { attrs: { scope: "col" } }, [
-            _vm.edit
-              ? _c("div", { staticClass: "input-group input-group-sm" }, [
-                  _c("div", { staticClass: "input-group-prepend" }, [
-                    _c("span", { staticClass: "input-group-text" }, [
-                      _vm._v(_vm._s(_vm.siteCurrency))
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.shipping_cost,
-                        expression: "shipping_cost"
-                      }
-                    ],
-                    staticClass: "form-control form-control-sm",
-                    staticStyle: { "max-width": "80px" },
-                    attrs: {
-                      type: "number",
-                      name: "shipping_cost",
-                      id: "shipping_cost"
-                    },
-                    domProps: { value: _vm.shipping_cost },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.shipping_cost = $event.target.value
-                      }
-                    }
-                  })
-                ])
-              : _c("span", [
-                  _vm._v(
-                    _vm._s(_vm.siteCurrency) +
-                      _vm._s(
-                        _vm.formatPrice(
-                          _vm.shipping_cost ? _vm.shipping_cost : 0
-                        )
-                      )
-                  )
-                ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("VAT")]),
-          _vm._v(" "),
-          _c("td", { attrs: { scope: "col" } }, [
-            _vm._v(
-              _vm._s(_vm.siteCurrency) +
-                _vm._s(_vm.formatPrice(_vm.productsTotalVAT))
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Total")]),
-          _vm._v(" "),
-          _c("td", { attrs: { scope: "col" } }, [
-            _vm._v(
-              _vm._s(_vm.siteCurrency) +
-                _vm._s(_vm.formatPrice(_vm.productsTotal))
-            )
-          ])
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _vm.edit
-      ? _c(
-          "button",
-          {
-            staticClass: "btn btn-sm btn-outline-primary",
-            attrs: { type: "button", name: "add_row" },
-            on: { click: _vm.addRow }
-          },
-          [_vm._v("Add Row")]
-        )
-      : _vm._e()
-  ])
+  return _c("print-button", {
+    attrs: { "print-url": _vm.printUrl },
+    scopedSlots: _vm._u([
+      {
+        key: "default",
+        fn: function(props) {
+          return [_vm._t("default", null, { print: props.print })]
+        }
+      }
+    ])
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -810,7 +635,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-198bddf8", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-523f77ea", module.exports)
   }
 }
 

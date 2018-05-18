@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Illuminate\Http\Request;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -142,5 +143,20 @@ class OrderController extends Controller
         $order->delete();
 
         return redirect()->route('orders.index')->with('status', __('Order successfully deleted.'));
+    }
+
+    public function print(Request $request, Order $order)
+    {
+        $view_folder = 'print-templates';
+        $view = "{$view_folder}/{$request->type}";
+
+        if (view()->exists($view)) {
+            if ($request->pdf) {
+                $pdf = PDF::loadView($view, ['order' => $order]);
+                return $pdf->download('invoice.pdf');
+            }
+            return view($view)->with(compact('order'));
+        }
+        return view('print-templates/invoice', compact('order'));
     }
 }

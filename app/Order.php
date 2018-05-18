@@ -30,6 +30,20 @@ class Order extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['delivery_note_pdf_link', 'invoice_pdf_link', 'delivery_note_link', 'invoice_link'];
+
+    /**
+     * The base print url.
+     *
+     * @var String
+     */
+    protected $print_url_base = '/orders/print';
+
+    /**
      * Get the validation rules for creating the model.
      *
      *  @return Array
@@ -59,6 +73,68 @@ class Order extends Model
             'products.*.quantity' => 'sometimes|required',
             'products.*.unit_price' => 'sometimes|required',
             'products.*.total' => 'sometimes|required',
+        ];
+    }
+
+    /**
+     * Return link to download a delivery note PDF.
+     *
+     *  @return String
+     */
+    public function getDeliveryNotePdfLinkAttribute()
+    {
+        return "{$this->delivery_note_link}&pdf=1";
+    }
+
+    /**
+     * Return link to download an invoice PDF.
+     *
+     *  @return String
+     */
+    public function getInvoicePdfLinkAttribute()
+    {
+        return "{$this->invoice_link}&pdf=1";
+    }
+
+    /**
+     * Return link to print a delivery note.
+     *
+     *  @return String
+     */
+    public function getDeliveryNoteLinkAttribute()
+    {
+        return url("{$this->print_url_base}/{$this->id}?type=delivery-note");
+    }
+
+    /**
+     * Return link to print an invoice.
+     *
+     *  @return String
+     */
+    public function getInvoiceLinkAttribute()
+    {
+        return url("{$this->print_url_base}/{$this->id}?type=invoice");
+    }
+
+    /**
+     * Return product totals.
+     *
+     *  @return Array
+     */
+    public function getTotalsAttribute()
+    {
+        $subtotal = floatval(0);
+        foreach ($this->order_info as $key => $item) {
+            $subtotal = floatval($subtotal + floatval($item['unit_price'] ?? 0));
+        }
+        $shipping = floatval($this->shipping_cost);
+        $vat = floatval(($subtotal + $shipping) * 0.2);
+
+        return [
+            'Sub-Total' => number_format($subtotal, 2, '.', ','),
+            'Shipping' => number_format($shipping, 2, '.', ','),
+            'VAT' => number_format($vat, 2, '.', ','),
+            'Total' => number_format(($subtotal + $this->shipping_cost + $vat), 2, '.', ','),
         ];
     }
 

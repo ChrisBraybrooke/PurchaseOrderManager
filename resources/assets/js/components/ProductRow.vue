@@ -20,7 +20,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">{{ siteCurrency }}</span>
             </div>
-            <input type="number" v-model="product.unit_price" @change="unitPriceChange" :name="'products[' + id + '][unit_price]'" class="form-control form-control-sm" id="unit_price" required>
+            <input type="text" v-model="product.unit_price" @change="unitPriceChange" :name="'products[' + id + '][unit_price]'" class="form-control form-control-sm" id="unit_price" required>
         </div>
         <span v-else>{{ siteCurrency }}{{ product.unit_price }}</span>
     </td>
@@ -29,13 +29,13 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">{{ siteCurrency }}</span>
             </div>
-            <input type="number" :value="formatPrice(product.total)" class="form-control form-control-sm" disabled required>
-            <input type="number" v-model="product.total" :name="'products[' + id + '][total]'" class="form-control form-control-sm" id="total" hidden required>
+            <input type="text" :value="formatPrice(product.total)" class="form-control form-control-sm" disabled required>
+            <input type="text" :value="formatPrice(product.total)" :name="'products[' + id + '][total]'" class="form-control form-control-sm" id="total" hidden required>
         </div>
         <span v-else>{{ siteCurrency }}{{ formatPrice(product.total) }}</span>
     </td>
-    <td>
-        <button v-if="edit" type="button" name="delete" class="btn btn-sm btn-outline-danger" @click="removeRow"> <i class="far fa-trash-alt" aria-hidden></i> </button>
+    <td v-if="edit">
+        <button type="button" name="delete" class="btn btn-sm btn-outline-danger" @click="removeRow"> <i class="far fa-trash-alt" aria-hidden></i> </button>
     </td>
 
 </tr>

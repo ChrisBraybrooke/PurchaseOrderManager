@@ -17,9 +17,7 @@ Route::get('/', function () {
 
 Route::resource('orders', 'OrderController');
 
-Route::get('orders/print/{order}', function (App\Order $order) {
-    return view('print-templates/delivery-note', compact('order'));
-});
+Route::get('orders/print/{order}', 'OrderController@print');
 
 Auth::routes();
 

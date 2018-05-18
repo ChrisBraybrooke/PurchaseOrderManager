@@ -38,7 +38,7 @@
                           <div class="input-group-prepend">
                               <span class="input-group-text">{{ siteCurrency }}</span>
                           </div>
-                          <input type="number" v-model="shipping_cost" name="shipping_cost" class="form-control form-control-sm" id="shipping_cost" style="max-width:80px">
+                          <input type="text" v-model="shipping_cost" @change="shippingPriceChange" name="shipping_cost" class="form-control form-control-sm" id="shipping_cost" style="max-width:80px">
                       </div>
                       <span v-else>{{ siteCurrency }}{{ formatPrice(shipping_cost ? shipping_cost : 0) }}</span>
                   </td>
@@ -140,13 +140,17 @@ export default {
       mounted () {
           console.log('ProductAddComponent mounted');
           this.products = _.clone(this.existingProducts, true);
-          this.shipping_cost = _.clone(parseFloat(this.existingShipping), true);
+          this.shipping_cost = _.clone(this.formatPrice(this.existingShipping), true);
       },
 
       methods: {
           addRow()
           {
               this.products.push(_.clone(productModel, true));
+          },
+          shippingPriceChange(val)
+          {
+              this.shipping_cost = this.formatPrice(this.shipping_cost);
           }
       },
 
